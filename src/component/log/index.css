@@ -1,0 +1,9 @@
+.loginImg{
+    margin-top: 50px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.loginImg img{
+    width:50%;
+    height:50%;
+}
