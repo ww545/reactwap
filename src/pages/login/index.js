@@ -12,32 +12,39 @@ import  FromHandle from '../../component/fromComponet/onchange'
 )
     @FromHandle
 class Login extends Component{
-    constructor(props){
-        super(props)
+    componentDidMount(){
+        if(this.props.user){
+            this.props.history.push('/me')
+        }
     }
-
+    onKeyup=(e)=>{
+        if(e.keyCode===13){
+            this.handleLogin()
+        }
+    }
     PushReg=()=>{
         this.props.history.push('/register')
     }
     handleLogin=()=>{
         this.props.login(this.props.state)
     }
+
     render(){
         return(
             <Fragment>
 
-                {this.props.redirectTo&&this.props.redirectTo!='/login'?<Redirect to={this.props.redirectTo} />:null}
+                {this.props.redirectTo&&this.props.redirectTo!=='/login'?<Redirect to={this.props.redirectTo} />:null}
                 <Log></Log>
                 <WingBlank>
                 <List>
                 {this.props.msg?<p className='errMsg'>{this.props.msg}</p>:null}
                 <InputItem  onChange={v=>this.props.handleChange('user',v)}>用户名</InputItem>
                 <WhiteSpace />
-                <InputItem type='password' onChange={v=>this.props.handleChange('pwd',v)}>密码</InputItem>
+                <InputItem type='password' onChange={v=>this.props.handleChange('pwd',v)}     onKeyUp={this.onKeyup}>密码</InputItem>
                 </List>
 
                 <WhiteSpace />
-                <Button type='primary' onClick={this.handleLogin}>登录</Button>
+                <Button type='primary' onClick={this.handleLogin} >登录</Button>
                 <WhiteSpace />
                 <Button type='primary' onClick={this.PushReg}>注册</Button>
                 </WingBlank>

@@ -1,5 +1,5 @@
 import React,{Component,Fragment} from 'react'
-import {Toast,List,InputItem , WhiteSpace , Radio , Button ,WingBlank } from 'antd-mobile'
+import {List,InputItem , WhiteSpace , Radio , Button ,WingBlank } from 'antd-mobile'
 import {connect} from 'react-redux'
 import {Redirect}from 'react-router-dom'
 import Log from '../../component/log/login'
@@ -36,9 +36,10 @@ class Register extends Component{
         this.props.register(this.state)
     }
     render(){
+        console.log(this.state)
         return(
             <Fragment>
-               {this.props.redirectTo&&this.props.redirectTo!='/login'?<Redirect to={this.props.redirectTo} />:null}
+               {this.props.redirectTo&&this.props.redirectTo!=='/login'?<Redirect to={this.props.redirectTo} />:null}
                 <Log></Log>
                 <WingBlank>
                 <List>
@@ -50,13 +51,13 @@ class Register extends Component{
                 <InputItem type='password' onChange={v=>this.handleChange('reppwd',v)}>确认密码</InputItem>
                 <WhiteSpace />
                 <RadioItem
-                    checked={this.state.type=='staff'}
+                    checked={this.state.type==='staff'}
                     onChange={()=>this.handleChange('type','staff')}
                     >
                     牛人
                 </RadioItem>
                 <RadioItem
-                    checked={this.state.type=='boss'}
+                    checked={this.state.type==='boss'}
                     onChange={()=>this.handleChange('type','boss')}
                   >
                     Boss

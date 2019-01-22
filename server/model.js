@@ -28,7 +28,12 @@ const models = {
         'money':{type:String}
     },
     chat:{
-        //聊天功能
+        'chatid':{'type':String,'require':true},
+        'read':{'type':Boolean,'default':false},
+        'from':{'type':String,'require':true},
+        'to':{'type':String,'require':true},
+        'content':{'type':String,'require':true,'default':''},
+        'create_time':{'type':Number,'default':new Date().getTime()}
     }
 }
 //批量动态生成

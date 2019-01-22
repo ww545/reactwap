@@ -10,6 +10,7 @@ import {updates} from  '../../redux/user.redux'
     {updates}
 )
 class Bossinfo extends Component{
+
     constructor(props){
         super(props)
         this.state={

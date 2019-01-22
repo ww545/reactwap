@@ -1,5 +1,5 @@
 import  React,{Component , Fragment} from 'react'
-import {Switch,Route } from 'react-router-dom'
+import {Switch,Route  ,Redirect} from 'react-router-dom'
 import  {NavBar} from 'antd-mobile'
 import {connect } from 'react-redux'
 
@@ -8,12 +8,23 @@ import Boss from '../boss/index'
 import Staff from '../staff/index'
 import User from '../me/index'
 import Msg from '../msg/index'
-
+import {getMsgList  ,recvMsg} from '../../redux/chat.redux'
 import  './index.css'
 @connect(
-    state=>state
+    state=>state,
+    {getMsgList  ,recvMsg}
 )
  class Dashboard extends Component{
+    shouldComponentUpdate(nextProps,nextState){
+
+        return true
+    }
+    componentDidMount(){
+        if(!this.props.chat.chatmsg.length){
+            this.props.getMsgList();
+            this.props.recvMsg();
+        }
+    }
     render(){
         const {pathname} = this.props.location
         const user = this.props.user
@@ -24,7 +35,7 @@ import  './index.css'
                 icon:'boss',
                 title:'牛人列表',
                 component:Boss,
-                hide:user.type=='staff'
+                hide:user.type==='staff'
             },
             {
                 path:'/staff',
@@ -32,7 +43,7 @@ import  './index.css'
                 icon:'job',
                 title:'Boss列表',
                 component:Staff,
-                hide:user.type=='boss'
+                hide:user.type==='boss'
             },
             {
                 path:'/msg',
@@ -49,14 +60,17 @@ import  './index.css'
                 component:User
             }
         ]
-        const navTitle= navLink.find(v=>v.path==pathname);
-        return (
+        const navTitle= navLink.find(v=>v.path===pathname);
+        console.log(this.props)
+        console.log( navTitle)
+        // const Red = <Redirect to="/me"/>;
+        return navTitle===undefined ?<Redirect to="/login"/>:(
             <Fragment>
               <div className="homeTab">
                 <div>
                     <NavBar mode="dard">
                         {
-                            navTitle!=undefined?navTitle.title:null
+                            navTitle!==undefined?navTitle.title:null
                         }
                      </NavBar>
                 </div>

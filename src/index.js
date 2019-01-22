@@ -1,25 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter} from 'react-router-dom'
+import {BrowserRouter } from 'react-router-dom'
 import {Provider} from 'react-redux'
-import { PersistGate } from 'redux-persist/integration/react'
-
+import {createStore,applyMiddleware,compose} from 'redux'
+import thunk from 'redux-thunk';
 import * as serviceWorker from './serviceWorker';
-
+import reducers from '../src/reducers/index'
 import App from './App';
-import configStore from './utils/configureStore' //数据持久化F5再也不用担心数据米有了
+
 import './index.css';
 import './utils/interceptor'
 
-const {store ,persistor} = configStore()
 
+const store = createStore(reducers, compose(
+    applyMiddleware(thunk),
+    window.devToolsExtension?window.devToolsExtension():f=>f
+))
 ReactDOM.render(
     (<Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter>
+
+        <BrowserRouter  >
              <App />
-        </BrowserRouter>
-        </PersistGate>
+        </BrowserRouter >
+
     </Provider>) ,
     document.getElementById('root'));
 

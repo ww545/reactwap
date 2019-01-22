@@ -6,7 +6,9 @@ export function getRedirectPath({type,avatar}){
     return url
 }
 
-
+export function getChatId(userId , targetId){
+  return [userId,targetId].sort().join('_')
+}
 /*
 * 根据用户信息跳转
 * 1.user.type 根据用户type ( 是boss 跳转到/boss )  or(是staff 跳转到/staff)

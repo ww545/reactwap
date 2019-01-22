@@ -1,8 +1,9 @@
 import React,{Component} from 'react'
 import axios from 'axios'
-import { withRouter } from 'react-router-dom'
+import { withRouter  } from 'react-router-dom'
 import { loadData } from "../../redux/user.redux";
 import { connect } from 'react-redux'
+import { Toast } from 'antd-mobile';
 
 @withRouter
 @connect(
@@ -19,15 +20,19 @@ class Auth extends Component{
         // 获取用户信息
         axios.get('/user/info')
             .then(res=>{
-                if (res.status==200) {
-                    if (res.data.code==0) {
+                if (res.status===200) {
+                    if (res.data.code===0) {
                         // 有登录信息de
                         this.props.loadData(res.data.data)
                     }else{
                         this.props.history.push('/login')
                     }
                 }
-            })
+            }).catch(err=>{
+                console.log(err)
+                Toast.hide();
+                this.props.history.push('/login')
+             })
         // 是否登录
         // 现在的url地址  login是不需要跳转的
 

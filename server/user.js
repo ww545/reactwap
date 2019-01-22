@@ -3,7 +3,38 @@ const utility = require('utility');
 const Router = express.Router();
 const models = require('./model');
 const User = models.getModel('user')
+const Chat = models.getModel('chat')
 const _filter = {'pwd':0,'__v':0}
+
+Router.post('/readmsg',function(req,res){
+    const userid = req.cookies.userid;
+    const {from } = req.body;
+    Chat.update({from,to:userid},
+        {'$set':{read:true}},
+        {'multi':true},
+        function(err,doc){
+        if(!err){
+            return res.json({code:0,num:doc.nModified})
+        }
+        return res.json({code:500,msg:"修改失败"})
+    })
+})
+//chat
+Router.get('/getmsglist',function(req,res){
+    const user =req.cookies.user;
+    User.find({},function(er,userdoc){
+        let users = {};
+        userdoc.forEach(v=>{
+            users[v._id] = {name:v.user,avatar:v.avatar}
+        })
+        Chat.find({'$or':[{from:user},{to:user}]},function(err,doc){
+            if(!err){
+                return res.json({code:0,msgs:doc, users:users})
+            }
+        })
+    })
+})
+
 //获取用户列表
 Router.get('/list',function(req, res){
     const { type } = req.query
@@ -74,6 +105,9 @@ Router.get('/info',function(req, res){
     // 用户有没有cookie
 
 })
+
+
+
 //创建MD5加密
 function md5Pwd(pwd){
     const salt = 'muxiaobai_is_show_time_3137@$#!jk$*(~~'

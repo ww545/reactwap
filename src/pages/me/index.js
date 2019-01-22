@@ -1,6 +1,6 @@
-import React,{Component,Fragment} from 'react'
+import React,{Component} from 'react'
 import { connect }  from 'react-redux'
-import { Result , List , Brief ,WhiteSpace , Modal} from 'antd-mobile'
+import { Result , List  ,WhiteSpace , Modal} from 'antd-mobile'
 
 import browserCookies from 'browser-cookies'
 import  { Redirect } from 'react-router-dom'
@@ -12,9 +12,7 @@ import  {logoutSubmit} from '../../redux/user.redux'
     {logoutSubmit}
 )
 class Me extends Component{
-    constructor(props){
-        super(props)
-    }
+
     Logout=()=>{
         const alert = Modal.alert;
         alert('注销', '确认退出吗', [
@@ -35,7 +33,7 @@ class Me extends Component{
                 <Result
                     img={<img src={require(`../../component/img/${props.avatar}.png`)} style={{width:50}} alt="" />}
                     title={props.user}
-                    message={props.type=='boss'?props.company:null}
+                    message={props.type==='boss'?props.company:null}
                 />
 
                 <List renderHeader={()=>'简介'}>

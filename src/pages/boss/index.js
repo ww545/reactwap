@@ -7,9 +7,7 @@ import UserCard from '../../component/userCard/index'
     {getUserList}
 )
 class Boss extends Component{
-    constructor(props){
-        super(props)
-    }
+
     componentDidMount(){
       this.props.getUserList('staff')
     }

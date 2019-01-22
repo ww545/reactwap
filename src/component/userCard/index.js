@@ -1,10 +1,11 @@
 import React,{Component,Fragment} from 'react'
 import {Card , WingBlank ,WhiteSpace } from 'antd-mobile'
+import {withRouter} from 'react-router-dom'
 
-
+@withRouter
 class UserCard extends Component{
-    constructor(props){
-        super(props)
+    handleClick = (v)=>{
+        this.props.history.push(`/chat/${v._id}`)
     }
     render(){
         const Header = Card.Header;
@@ -16,14 +17,14 @@ class UserCard extends Component{
                     <WhiteSpace></WhiteSpace>
                 {this.props.userList.map(v=>(
                     v.avatar?(
-                        <Card key={v._id}>
+                        <Card key={v._id}  onClick={()=>this.handleClick(v)}>
                             <Header
                                 title={v.user}
                                 thumb={require(`../../component/img/${v.avatar}.png`)}
                                 extra={<span>{v.title}</span>}
                             />
                             <Body>
-                            {v.type=='boss'?
+                            {v.type==='boss'?
                                 <div>
                                     公司:{v.company}
                                 </div>
@@ -31,7 +32,7 @@ class UserCard extends Component{
                             {v.desc.split('\n').map(j=>(
                                 <div key={j}>{j}</div>
                             ))}
-                            {v.type=='boss'?
+                            {v.type==='boss'?
                                 <div>
                                     薪资:{v.money}
                                 </div>

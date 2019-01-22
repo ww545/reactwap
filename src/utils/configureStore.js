@@ -8,6 +8,7 @@ import rootReducer from '../reducers/index'
 const persistConfig = {
     key: 'root',
     storage,
+
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -17,7 +18,9 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
         applyMiddleware(thunk),
         window.devToolsExtension?window.devToolsExtension():fn=>fn
     ));
-    let persistor = persistStore(store)
+    let persistor = persistStore(store,{
+
+    })
     return { store, persistor }
 }
 export default JiuNiPi
