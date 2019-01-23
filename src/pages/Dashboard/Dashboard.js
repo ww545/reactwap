@@ -61,9 +61,6 @@ import  './index.css'
             }
         ]
         const navTitle= navLink.find(v=>v.path===pathname);
-        console.log(this.props)
-        console.log( navTitle)
-        // const Red = <Redirect to="/me"/>;
         return navTitle===undefined ?<Redirect to="/login"/>:(
             <Fragment>
               <div className="homeTab">

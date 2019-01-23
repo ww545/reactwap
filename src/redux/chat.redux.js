@@ -2,7 +2,9 @@ import axios from 'axios'
 import Qs from 'qs'
 import io from 'socket.io-client'
 
-const socket = io('ws://localhost:9093');
+const socket = io('ws://39.106.153.226:9093',  {
+    "transports":['websocket', 'polling']
+});
 
 
 const MSG_READ = 'MSG_READ'

@@ -3,13 +3,12 @@ import { Toast } from 'antd-mobile';
 axios.defaults.withCredentials = true
 
 
-//设置默认请求头
+// //设置默认请求头
 axios.defaults.headers = {
 	'content-type' : 'application/json',  //传出类型 ）json,form表单
-	'Content-Type': 'application/x-www-form-urlencoded'
-	
-}
+	'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
 
+}
 
 //请求响应 Toast.loading('加载中...',0);
 axios.interceptors.request.use(
